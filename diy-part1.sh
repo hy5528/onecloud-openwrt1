@@ -62,17 +62,19 @@ shopt -s extglob
 SHELL_FOLDER=$(dirname $(readlink -f "$0"))
 merge_package main https://github.com/lxiaya/openwrt-onecloud target/linux target/linux/amlogic
 sed -i "s/wpad-openssl/wpad-basic-mbedtls/" target/linux/amlogic/image/Makefile
-sed -i "s/neon-vfpv4/vfpv4/" target/linux/amlogic/meson8b/target.mk
+# sed -i "s/neon-vfpv4/vfpv4/" target/linux/amlogic/meson8b/target.mk
 rm -rf package/feeds/routing/batman-adv
 # 添加无线网卡支持,似乎不起作用？
-sed -i '/bool "Enable SDIO bus interface support"/a\		default y if TARGET_amlogic' package/kernel/mac80211/broadcom.mk
+# sed -i '/bool "Enable SDIO bus interface support"/a\		default y if TARGET_amlogic' package/kernel/mac80211/broadcom.mk
 
 # git clone https://github.com/sbwml/autocore-arm package/autocore-arm -b openwrt-24.10 --depth 1
 # rm -rf package/autocore-arm/.git
 # sed -i 's/ + '\'' \x27 + luciversion\.revision//g' package/autocore-arm/files/generic/10_system.js
+
 merge_package openwrt-24.10 https://github.com/immortalwrt/immortalwrt package package/emortal/automount
 
 ./scripts/feeds update -a
+
 rm -rf feeds/packages/net/microsocks
 rm -rf feeds/packages/net/sing-box
 rm -rf feeds/packages/net/v2ray-core
@@ -85,9 +87,9 @@ merge_package openwrt-23.05 https://github.com/coolsnowwolf/luci feeds/luci/appl
 merge_package openwrt-24.10 https://github.com/immortalwrt/luci feeds/luci/applications applications/luci-app-msd_lite
 
 # echo '### Argon Theme Config ###'
-rm -rf feeds/luci/themes/luci-theme-argon
+# rm -rf feeds/luci/themes/luci-theme-argon
 git clone -b master  https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-argon-config # if have
+# rm -rf feeds/luci/applications/luci-app-argon-config # if have
 git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/applications/luci-app-argon-config
 
 ./scripts/feeds update -a
