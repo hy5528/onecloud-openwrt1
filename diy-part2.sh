@@ -12,7 +12,7 @@
 
 
 # 1.修改默认ip
-sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.158/g' package/base-files/files/bin/config_generate
 
 # 2.修改主机名
 sed -i 's/OpenWrt/OneCloud/g' package/base-files/files/bin/config_generate
@@ -56,6 +56,8 @@ chmod +x files/root/resize.sh
 sed -i "s/timezone='UTC'/timezone='CST-8'/g" package/base-files/files/bin/config_generate
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" package/base-files/files/bin/config_generate
 
+# 替换终端为bash
+sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd
 
 # uwsgi - fix timeout
 # sed -i '$a cgi-timeout = 600' feeds/packages/net/uwsgi/files-luci-support/luci-*.ini
