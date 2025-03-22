@@ -290,15 +290,12 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to Releases
-      uses: softprops/action-gh-release@v2.2.1
-      if: steps.tag.outputs.status == 'success' && !cancelled()
+      uses: softprops/action-gh-release@master
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: ${{ steps.tag.outputs.release_tag }} for OneCloud_${{ env.OPENWRT_TAG }} ${{ env.EMOJI }}
-        tag_name: ${{ env.OPENWRT_TAG }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+        tag_name: OpenWrt直刷包_${{env.DATE}}
         body: |
           This is OpenWrt firmware for OneCloud
           ### 📒 Firmware information
