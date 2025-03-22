@@ -177,12 +177,11 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件到Releases
-      uses: softprops/action-gh-release@master
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: ncipollo/release-action@v1
       with:
-        tag_name: OpenWrt-lede直刷包_${{env.DATE}}
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: OpenWrt-lede_${{ env.OWRT_SOURCE }}_${{ env.OWRT_DATE }}
         body: |
           This is OpenWrt firmware for OneCloud
           ### 📒 Firmware information
