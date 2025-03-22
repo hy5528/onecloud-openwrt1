@@ -267,7 +267,7 @@ jobs:
         rm -rf openwrt/bin/targets/*/*/*.img
         rm -rf openwrt/bin/targets/*/*/*.gz
         cd openwrt/bin/targets/*/*
-        mv *.xz ${{ matrix.repo_info.branch }}-k6.11-onecloud_burn.img.xz
+        mv *.xz ${{ matrix.repo_info.branch }}-onecloud_openwrt_burn.img.xz
         rm -rf packages
         rm -rf *.buildinfo
         rm -rf profiles.json
