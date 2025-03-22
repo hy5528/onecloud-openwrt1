@@ -257,39 +257,32 @@ jobs:
       run: df -hT
 
 
-    - name: Organize files
+    - name: 整理文件
       id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
+        gunzip openwrt/bin/targets/*/*/*.gz
+        for f in openwrt/bin/targets/*/*/*.img; do
+          xz -9 --threads=0 --compress "$f"
+        done
+        rm -rf openwrt/bin/targets/*/*/*.img
+        rm -rf openwrt/bin/targets/*/*/*.gz
         cd openwrt/bin/targets/*/*
+        mv *.xz ${{ matrix.repo_info.branch }}-k6.11-onecloud_burn.img.xz
         rm -rf packages
+        rm -rf *.buildinfo
+        rm -rf profiles.json
+        rm -rf *.manifest
+        rm -rf *.sha
+        rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: Upload firmware directory
-      uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
-      with:
-        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}
-
-    - name: Generate release tag
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-
-    - name: Upload firmware to Releases
-      uses: softprops/action-gh-release@master
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+    - name: 上传固件到Releases
+      uses: softprops/action-gh-release@v2.1.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: OpenWrt直刷包_${{env.DATE}}
+        tag_name: ${{ env.release_tag }}-${{env.tag}}
+        files: ${{ env.FIRMWARE }}/*
         body: |
           This is OpenWrt firmware for OneCloud
           ### 📒 Firmware information
