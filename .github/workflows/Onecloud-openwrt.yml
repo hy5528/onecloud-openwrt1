@@ -311,7 +311,4 @@ jobs:
           - 🔑 Default username: root
           - 🔑 Default password: password
         
-   
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
