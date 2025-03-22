@@ -88,7 +88,7 @@ merge_package openwrt-24.10 https://github.com/immortalwrt/luci feeds/luci/appli
 
 # echo '### Argon Theme Config ###'
 # rm -rf feeds/luci/themes/luci-theme-argon
-# git clone -b master  https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
+git clone -b master  https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 # rm -rf feeds/luci/applications/luci-app-argon-config # if have
 git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/applications/luci-app-argon-config
 
