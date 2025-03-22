@@ -81,12 +81,6 @@ jobs:
 
     - name: 安装自定义配置
       run: cd openwrt && ./scripts/feeds install -a
-      
-    - name: 增加 Argon 主题
-      uses: actions/checkout@v4
-      with:
-        repository: jerrykuku/luci-theme-argon
-        path: openwrt/package/luci-theme-argon
         
     - name: 加载自定义配置2
       run: |
