@@ -303,11 +303,11 @@ jobs:
           This is OpenWrt firmware for OneCloud
           ### 📒 Firmware information
           - 🚀 amlogic_meson8b 多功能版
-          - 💋一键扩容 cd /root ./expand-root.sh
+          - 💋一键扩容 cd /root ./expand-root.sh 或 sh 1.sh
           - 💻 平台架构: ARMV7
           - ⚽ 固件源码: https://github.com/immortalwrt/immortalwrt
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
-          - 🌐 Default IP: 192.168.2.3
+          - 🌐 Default IP: 192.168.2.158
           - 🔑 Default username: root
           - 🔑 Default password: password
  
