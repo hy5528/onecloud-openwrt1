@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: lite
+name: Onecloud-openwrt
 
 on:
   repository_dispatch:
@@ -19,7 +19,7 @@ env:
   REPO_BRANCH: openwrt-24.10
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/seed-lite.config
-  DIY_P1_SH: sh/diy-part1.sh
+  DIY_P1_SH: sh/op.sh
   DIY_P2_SH: sh/diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
@@ -304,24 +304,14 @@ jobs:
           ### 📒 Firmware information
           - 🚀 amlogic_meson8b 多功能版，集成插件多
           - 💋一键扩容 cd /root ./expand-root.sh
-          - 💻 平台架构: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-          - ⚽ 固件源码: ${{ env.REPO_URL }}
+          - 💻 平台架构: ARMV7
+          - ⚽ 固件源码: https://github.com/openwrt/openwrt
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
-          - 🌐 Default IP: 192.168.2.3
+          - 🌐 Default IP: 192.168.2.158
           - 🔑 Default username: root
           - 🔑 Default password: password
         
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 3
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@master
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 3
+   
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
