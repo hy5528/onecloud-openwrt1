@@ -182,8 +182,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: lede-openwrt直刷包_${{env.DATE}}
-        files: ${{ env.FIRMWARE }}/*
+        tag_name: OpenWrt-lede直刷包_${{env.DATE}}
         body: |
           This is OpenWrt firmware for OneCloud
           ### 📒 Firmware information
