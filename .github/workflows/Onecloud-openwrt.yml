@@ -252,6 +252,10 @@ jobs:
           sudo rm -rf openwrt/bin/targets/*/*/*.img
           sudo rm -rf openwrt/bin/targets/*/*/*.gz
 
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+      
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
